@@ -234,6 +234,8 @@ typedef struct s_exec
 	t_varint	*l;
 	char		**path_ex;
 	char		**list_sp;
+	char		**tmp_tab;
+	char		**spl;
 	int			pipe_fd[2];
 	int			*pid_fd;
 	char		*cp;

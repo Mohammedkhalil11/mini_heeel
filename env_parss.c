@@ -94,7 +94,7 @@ char	*fill_path(t_envar *env, t_env *s)
 	while (env->value[j] && env->value[j] != '=')
 		j++;
 	j++;
-	while (env->next)
+	while (env)
 	{
 		if (!ft_strncmp(s->var, var_gett(env)))
 		{

@@ -1,4 +1,4 @@
-NAME = Minishell
+NAME = minishell
 CC = gcc
 RM = rm -f
 LIBS =-lreadline -lncurses -lc -lm

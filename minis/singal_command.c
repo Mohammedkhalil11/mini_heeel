@@ -29,11 +29,45 @@ int	heredoc_single_command(t_exeec *z, char *list)
 	return (1);
 }
 
+char	**update_input_exp(char **cmd, char **new_cmd)
+{
+	char	**new_tab;
+	int		i;
+	int		j;
+	int		k;
+
+	j = 0;
+	i = 0;
+	while (new_cmd[i])
+		i++;
+	while (cmd[j])
+		j++;
+	new_tab = my_malloc(sizeof(char*) * (i + j + 1));
+	k = 0;
+	while (new_cmd[k])
+	{
+		new_tab[k] = ft_strdup(new_cmd[k]);
+		k++;
+	}
+	j = 0;
+	while (new_tab[k] && cmd[j])
+	{
+		new_tab[k] = cmd[j];
+		j++;
+		k++;
+	}
+	new_tab[k] = NULL;
+	return (new_tab);
+}
+
 void	exec_command_in_single_child(t_exeec *z, t_envar **ev)
 {
 	close(z->l->pipe_fd[1]);
 	if (z->cmd->commande[0])
 	{
+		z->tmp_tab = z->cmd->commande;
+		z->spl = ft_split(z->cmd->commande[0], ' ');
+		z->cmd->commande = update_input_exp(z->cmd->commande, z->spl);
 		signal(SIGINT, SIG_DFL);
 		z->path_ex = split_path(ev);
 		z->cp = check_path(z->path_ex, z->cmd->commande[0]);
