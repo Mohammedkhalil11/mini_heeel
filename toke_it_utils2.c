@@ -71,10 +71,12 @@ void	fill_in_double(char *str, t_tokenz *m, char token)
 		}
 		if (str[m->i] == '>' || str[m->i] == '<')
 		{
-			toknz_list(str, m->i, m->j);
-			break ;
+			m->array[m->j] = '8';
 		}
-		m->array[m->j] = '*';
+		else if (str[m->i] == '"' || str[m->i] == '\'')
+			m->array[m->j] = '3';
+		else if (str[m->i] != '<' && str[m->i] != '>')
+			m->array[m->j] = '*';
 		plus_plus(m);
 	}
 }

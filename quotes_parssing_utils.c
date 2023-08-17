@@ -44,7 +44,7 @@ void	parss_quotes(char *str, char *tknz, t_quote *q, char token)
 	q->j++;
 	while (tknz[q->i] != '2' && tknz[q->i])
 	{
-		while (tknz[q->i] == token && tknz[q->i])
+		if (tknz[q->i] == token && tknz[q->i])
 			q->i++;
 		q->ptr[q->j] = str[q->i];
 		q->j++;

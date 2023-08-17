@@ -12,43 +12,52 @@
 
 #include "../minishell.h"
 
+void	acc_j_her(char *str, t_bill *b)
+{
+	while (str[b->i])
+	{
+		str[b->i] = str[b->i + 1];
+		b->i++;
+	}
+}
+
 char	*check_bill_her(char *str, t_env *senv, t_envar *env)
 {
 	t_bill	*bill;
 
 	bill = my_malloc(sizeof(t_bill));
 	bill->i = 0;
-	if ((str[bill->i] == '"' || str[bill->i] == '\'')
-		&& str[bill->i + 1] == '$')
+	while (str[bill->i])
 	{
-		while (str[bill->i] && str[bill->i] != '\n')
-		{
-			str[bill->i] = str[bill->i + 1];
+		if ((str[bill->i] == '"' || str[bill->i] == '\'')
+			&& str[bill->i + 1] == '$')
+			acc_j_her(str, bill);
+		if (str[bill->i] == '$' && str[bill->i] != '"' && str[bill->i] != '\'')
+			str = done_normal_her(str, senv, env, bill);
+		if (bill->i < ft_strlen(str))
 			bill->i++;
-		}
-	}
-	if (str[0] == '$')
-	{
-		done_normal_her(str, senv, env, bill);
-		str = senv->path;
-		return (str);
 	}
 	return (str);
 }
 
-void	done_normal_her(char *str, t_env *senv, t_envar *env, t_bill *bill)
+char	*done_normal_her(char *str, t_env *senv, t_envar *env, t_bill *bill)
 {
+	char	*bef;
+	char	*buffer;
+	char	*rest;
+
 	senv->var = fill_var_her(str, env, bill->i);
+	senv->path = NULL;
 	senv->path = fill_path_her(env, senv);
-	if (senv->var[0] == '?')
-	{
-		free(str);
-		str = ft_itoa(g_g.exit_status);
-	}
-	if (senv->path != NULL)
-		free(str);
+	bef = ft_substr(str, 0, bill->i);
+	rest = ft_substr(str, bill->i + ft_strlen(senv->var) + 1, 10000);
+	if (my_strcmp(bef, NULL) == 0)
+		buffer = ft_strjoin(NULL, senv->path);
 	else
-		return ;
+		buffer = ft_strjoin(bef, senv->path);
+	str = ft_strjoin(buffer, rest);
+	bill->i = ft_strlen(buffer) - 1;
+	return (str);
 }
 
 char	*fill_var_her(char *str, t_envar *env, int i)
@@ -62,7 +71,7 @@ char	*fill_var_her(char *str, t_envar *env, int i)
 	var = my_malloc(sizeof(char) * 100);
 	x = 0;
 	i++;
-	while (str[i] && str[i] != ' ' && str[i] != '\n')
+	while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '\n')
 	{
 		var[x] = str[i];
 		i++;
@@ -79,12 +88,12 @@ char	*fill_path_her(t_envar *env, t_env *s)
 
 	j = 0;
 	path = my_malloc(sizeof(char) * 100);
-	while (env && env->value[j] && env->value[j] != '=')
+	while (env->value[j] && env->value[j] != '=')
 		j++;
 	j++;
-	while (env && env->next)
+	while (env->next)
 	{
-		if (s->var && !ft_strncmp(s->var, var_gett(env)))
+		if (!ft_strncmp(s->var, var_gett(env)))
 		{
 			path = get_path(env);
 			return (path);

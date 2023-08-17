@@ -11,6 +11,7 @@ src = main.c\
 		toke_it_utils.c\
 		toke_it_utils1.c\
 		toke_it_utils2.c\
+		toke_it_utils3.c\
 		parssing_utils.c\
 		parssing_utils1.c\
 		parssing_utils2.c\
@@ -26,6 +27,7 @@ src = main.c\
 		listes_files.c\
 		main_utils.c\
 		main_utils1.c\
+		main_utils2.c\
 		my_malloc.c\
 		my_malloc_utils.c\
 		env_parss.c\
@@ -59,18 +61,18 @@ src = main.c\
 		./minis/files_utils.c\
 		./minis/pipes_utils.c\
 		./minis/multiple_pipe_utils.c\
+		./minis/ft_strtrim.c\
 
 OBJECTS = ${src:.c=.o}
 
 all	:	$(NAME)
 
 $(NAME):	$(OBJECTS)
-	@$(CC) $(CFLAGS)  $(OBJECTS) ${LIBS} -o $(NAME) 
+	$(CC) $(CFLAGS)  $(OBJECTS) ${LIBS} -o $(NAME) 
 		
 clean :
-	@$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS)
 fclean : clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 re : fclean all
 .PHONY: all clean fclean re
-

@@ -43,31 +43,37 @@ void	ft_putstr(char *str)
 	printf("(%s)", str);
 }
 
+void	acc_join(t_join *z)
+{
+	z->i++;
+	z->j++;
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*x;
-	int		i;
-	int		j;
-	int		s1_len;
-	int		s2_len;
+	t_join	*z;
 
-	j = 0;
-	i = 0;
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	x = my_malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!x)
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	if (s1 && !s2)
+		return (ft_strdup(s1));
+	if (!s2 && s1)
+		return (ft_strdup(s1));
+	z = my_malloc(sizeof(t_join));
+	len_join(z, s1, s2);
+	if (!z->x)
 		return (0);
-	while (s1[i])
+	while (s1[z->i])
 	{
-		x[i] = s1[i];
-		i++;
+		z->x[z->i] = s1[z->i];
+		z->i++;
 	}
-	while (s2[j])
+	while (s2[z->j])
 	{
-		x[i] = s2[j];
-		i++;
-		j++;
+		z->x[z->i] = s2[z->j];
+		acc_join(z);
 	}
-	return (x[i] = '\0', x);
+	return (z->x[z->i] = '\0', z->x);
 }

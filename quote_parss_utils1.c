@@ -28,7 +28,7 @@ int	frst_s_q(char *tknz)
 
 int	frst_q_rex(char *tknz, int start)
 {
-	if (start - 1 >= 0 && tknz[start - 1] == '1')
+	if (start - 1 >= 0 && (tknz[start - 1] == '1'))
 	{
 		while (start >= 0)
 		{

@@ -12,8 +12,10 @@
 
 #include "minishell.h"
 
-void	int_main(t_main *main)
+void	int_main(t_main *main, int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	main->i = 0;
 	main->j = 0;
 	main->x = 0;

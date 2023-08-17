@@ -28,7 +28,7 @@ int	ft_isprintbl(char c)
 
 int	ft_issospecial(char c)
 {
-	if (c == '\'' || c == '"' || c == '\\' || c == '/' || c == '`' || c == '#'
+	if (c == '\\' || c == '/' || c == '`' || c == '#'
 		|| c == '*' || c == '|')
 		return (1);
 	return (0);

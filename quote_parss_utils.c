@@ -51,7 +51,7 @@ int	sec_s_q(char *tknz)
 			return (i);
 		i--;
 	}
-	return (lerreurat(3));
+	return (0);
 }
 
 int	sec_q_rex(char *tknz, int end)
@@ -59,7 +59,8 @@ int	sec_q_rex(char *tknz, int end)
 	if (end <= ft_strlen(tknz) && (tknz[end + 1] == '3' || tknz[end + 1] == '0')
 		&& tknz[end + 2] != '1')
 		return (end + 1);
-	if (end <= ft_strlen(tknz) && tknz[end + 1] == '1')
+	if (end <= ft_strlen(tknz) && (tknz[end + 1] == '1'
+			|| tknz[end + 1] == '-'))
 	{
 		while (tknz[end])
 		{

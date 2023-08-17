@@ -49,15 +49,15 @@ void	redi_tokenz(t_tokenz *m, char *str, char token)
 	m->array[m->j] = token;
 	plus_plus(m);
 	if (ft_isredi(str[m->i]) || ft_issospecial(str[m->i]))
-		lerreurat(9);
+	{
+		m->array[m->j] = token;
+		return ;
+	}
 	while (m->i <= ft_strlen(str) && (ft_isspace(str[m->i])
 			|| ft_isprintbl(str[m->i])) && !ft_issospecial(str[m->i])
 		&& str[m->i] && !lock)
 	{
-		if (ft_isspace(str[m->i]))
-			m->array[m->j] = '2';
-		else
-			m->array[m->j] = '*';
+		redi_is_more(str, m);
 		if (is_pss(str[m->i]))
 		{
 			plus_plus(m);
@@ -66,8 +66,7 @@ void	redi_tokenz(t_tokenz *m, char *str, char token)
 		}
 		plus_plus(m);
 	}
-	m->i--;
-	m->j--;
+	ft_down(m);
 }
 
 void	double_redi_tokenz(t_tokenz *m, char *str, char token)
@@ -79,8 +78,8 @@ void	double_redi_tokenz(t_tokenz *m, char *str, char token)
 	plus_plus(m);
 	m->array[m->j] = token;
 	plus_plus(m);
-	if (ft_isredi(str[m->i]) || ft_issospecial(str[m->i]))
-		lerreurat(9);
+	red_red(str, m, token);
+	red_q(str, m);
 	while (m->i <= ft_strlen(str) && str[m->i] && (ft_isspace(str[m->i])
 			|| ft_isprintbl(str[m->i])) && !ft_issospecial(str[m->i]) && !lock)
 	{
@@ -88,12 +87,10 @@ void	double_redi_tokenz(t_tokenz *m, char *str, char token)
 		if (ft_isprintbl(str[m->i]) && !ft_issospecial(str[m->i])
 			&& !ft_isspace(str[m->i]))
 		{
-			plus_plus(m);
 			fill_in_double(str, m, token);
 			lock = 1;
 		}
 		plus_plus(m);
 	}
-	m->i--;
-	m->j--;
+	ft_down(m);
 }

@@ -90,6 +90,8 @@ char	*fill_path(t_envar *env, t_env *s)
 	char	*path;
 
 	j = 0;
+	if (!env)
+		return (NULL);
 	path = my_malloc(sizeof(char) * 1000);
 	while (env->value[j] && env->value[j] != '=')
 		j++;

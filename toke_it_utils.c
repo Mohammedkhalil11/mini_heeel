@@ -27,8 +27,6 @@ void	dqbp(t_tokenz *m, char *str)
 			m->array[m->j] = '3';
 		else if (str[m->i] == '$')
 			m->array[m->j] = '-';
-		else if (str[m->i] == '\'')
-			m->array[m->j] = '0';
 		m->i++;
 		m->j++;
 	}
@@ -53,8 +51,6 @@ void	sqbp(t_tokenz *m, char *str)
 			m->array[m->j] = '0';
 		else if (str[m->i] == '$')
 			m->array[m->j] = '-';
-		else if (str[m->i] == '"')
-			m->array[m->j] = '0';
 		m->i++;
 		m->j++;
 	}

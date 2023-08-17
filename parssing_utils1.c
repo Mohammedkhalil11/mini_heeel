@@ -79,4 +79,3 @@ int	quote_bfr_pipe(char *str, int i, char q)
 	}
 	return (0);
 }
-

@@ -17,7 +17,6 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <string.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -234,8 +233,8 @@ typedef struct s_exec
 	t_varint	*l;
 	char		**path_ex;
 	char		**list_sp;
-	char		**tmp_tab;
 	char		**spl;
+	char		**tmp_tab;
 	int			pipe_fd[2];
 	int			*pid_fd;
 	char		*cp;
@@ -257,6 +256,16 @@ typedef struct g_fils
 	char	*out_file;
 }			t_filino;
 
+typedef struct s_join
+{
+	char	*x;
+	int		i;
+	int		j;
+	int		s1_len;
+	int		s2_len;
+}				t_join;
+
+char					**update_input_exp(char **cmd, char **new_cmd);
 int						parent_heredoc(t_herdc *a, t_varint *l);
 void					child_heredoc(t_herdc *a, t_varint *l);
 int						check_ofiles(char *list, int *i, int *j);
@@ -289,6 +298,7 @@ char					*get_path(t_envar *env);
 char					*fill_path(t_envar *env, t_env *s);
 int						quotes_error(char *list);
 int						expand_erreur(char *list);
+void					len_join(t_join *z, char *s1, char *s2);
 int						lerreurat(int error);
 char					*ft_substr(char *s, int start, int len);
 char					**ft_split(char *str, char c);
@@ -298,7 +308,7 @@ void					ft_lstadd_back(t_commandes **lst, t_commandes *new);
 void					ft_lstadd_back_files(t_files **lst, t_files *new);
 t_files					*ft_lstlast_files(t_files *lst);
 t_files					*ft_lstnew_files(void *content);
-void					int_main(t_main *main);
+void					int_main(t_main *main, int ac, char **av);
 void					int_main_before(t_main *main, t_envar *ev);
 void					int_main_after(t_main *main);
 void					print_after_pipe(t_main *main);
@@ -354,6 +364,8 @@ void					last_world_ig(t_commande *s, int i);
 void					get_commande(t_commande *s, char *str);
 void					skip_sp(t_commande *s, char *list, int i);
 void					free_all_1(char **str);
+void					ft_down(t_tokenz *m);
+void					redi_is_more(char *str, t_tokenz *m);
 int						num_of_s_q(char *list, int start);
 int						sec_s_q(char *tknz);
 int						check_pipe(char *list);
@@ -436,8 +448,8 @@ void					cd_old(t_envar	**ev, t_tcd *l, char **input);
 void					cd_as(t_envar	**ev, t_tcd *l);
 void					get_pwd(t_envar	**ev, t_tcd *l);
 char					*check_bill_her(char *str, t_env *senv, t_envar *env);
-void					done_normal_her(char *str, t_env *senv, t_envar *env,
-							t_bill *bill);
+char					*done_normal_her(char *str, t_env *senv,
+							t_envar *env, t_bill *bill);
 char					*fill_var_her(char *str, t_envar *env, int i);
 char					*fill_path_her(t_envar *env, t_env *s);
 void					set_pipe(t_exeec *z, t_envar **ev);
@@ -449,5 +461,10 @@ int						bigger_than_one(char *list, t_commandes **c,
 void					here_doc_signal(int sig);
 void					fill_str_l(t_herdc *a, t_varint *l);
 int						error_parss(char *list);
+char					*ft_strtrim(char *s1, char *set);
+void					acc_j(t_commandes *tmp, t_bill *b);
+void					red_q(char *str, t_tokenz *m);
+void					red_red(char *str, t_tokenz *m, char token);
+int						my_strcmp(char *s1, char *s2);
 
 #endif

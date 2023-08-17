@@ -34,33 +34,26 @@ int	main(int ac, char **av, char **env)
 	t_main	*main;
 	t_envar	*ev;
 
-	(void)ac;
-	(void)av;
 	ev = 0;
 	ev = get_env(ev, env);
 	main = my_malloc(sizeof(t_main));
-	int_main(main);
+	int_main(main, ac, av);
 	signal_handler();
-	// int in = dup(0);
-	// printf("iiiin %d\n", in);
-    while (1)
-    {
-        int_sig_main(main);
-        ft_read_line(main);
-        if (!error_parss(main->list))
-        {
-        if (main->list && main->line
-            && (*return_commande(main->list, main->line, 1, 0)
-                || *return_file(main->list, main->line, 1, main->tmp)))
-            int_main_before(main, ev);
-        do_after_pipe(main, ev);
-        multiple_pipe(&main->m, &ev, main->list, &main->senv);
-		//dup2(0, in);
-		// close(in);
-		// printf("close\n");
-        if (main->line)
-            free(main->line);
-        }
-        re_vars(main);
-    }
+	while (1)
+	{
+		int_sig_main(main);
+		ft_read_line(main);
+		if (!error_parss(main->list))
+		{
+			if (main->list && main->line
+				&& (*return_commande(main->list, main->line, 1, 0)
+					|| *return_file(main->list, main->line, 1, main->tmp)))
+				int_main_before(main, ev);
+			do_after_pipe(main, ev);
+			multiple_pipe(&main->m, &ev, main->list, &main->senv);
+			if (main->line)
+				free(main->line);
+		}
+		re_vars(main);
+	}
 }

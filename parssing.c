@@ -37,7 +37,7 @@ char	**return_commande(char *list, char *str, int bool, int c)
 	expand_erreur(list);
 	i = starting_parss(list, ++i, c);
 	while (i + 1 <= ft_strlen(list) && list[i] && s->x <= count_ptr(list, bool)
-		&& list[i] != '6')
+		&& list[i] != '6' && !ft_isredi(list[i]))
 	{
 		if (ft_isredi(list[i]))
 		{
@@ -64,7 +64,7 @@ char	**return_file(char *list, char *str, int bool, t_commandes *tmp)
 	i = first_file_parss(bool, i);
 	if (list[i] && list[i] == '6')
 		i++;
-	while (list[i] == '2' || list[i] == '1')
+	while (list[i] == '2' || list[i] == '1' || list[i] == '3')
 		i++;
 	while (i <= ft_strlen(list) && list[i] && list[i] != '6')
 	{
@@ -95,7 +95,7 @@ char	*quotes_quotes(char *str, char *tknz, int start)
 			parss_quotes(str, tknz, q, tknz[q->i + 1]);
 		else if (tknz[q->i] == '-' && tknz[q->i + 1] == '0')
 			parss_quotes(str, tknz, q, tknz[q->i + 1]);
-		if (tknz[q->i] == '1' || tknz[q->i] == '-')
+		if (tknz[q->i] == '1' || tknz[q->i] == '-' || tknz[q->i] == '*')
 			fill_between_q(str, q);
 		if ((tknz[q->i] == '0' || tknz[q->i] == '3') && !tknz[q->i + 1])
 			return (q->ptr[q->j] = '\0', q->ptr);

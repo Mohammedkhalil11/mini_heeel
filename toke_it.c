@@ -18,7 +18,7 @@ void	fill_the_rest2(t_tokenz *m, char *str)
 		m->array[m->j] = '2';
 	else if (str[m->i] == '"')
 	{
-		if (m->i - 1 >= 0 && str[m->i - 1] == '=')
+		if (str[m->i - 1] == '=')
 			m->array[m->j - 1] = '@';
 		dquotes_tokenz(m, str);
 	}
@@ -28,6 +28,8 @@ void	fill_the_rest2(t_tokenz *m, char *str)
 			m->array[m->j - 1] = '@';
 		squotes_tokenz(m, str);
 	}
+	else if (str[m->i] == '=')
+		m->array[m->j] = '@';
 	else if (str[m->i] == '=' && str[m->i + 1] != ' ')
 		for_aro_tok(m, str);
 	else if (str[m->i])
@@ -39,17 +41,9 @@ void	fill_the_rest(t_tokenz *m, char *str)
 	if (str[m->i] == '|')
 		m->array[m->j] = '6';
 	else if (str[m->i] == '>' && !(str[m->i + 1] == '>'))
-	{
 		redi_tokenz(m, str, '5');
-		m->i--;
-		m->j--;
-	}
 	else if (str[m->i] == '<' && !(str[m->i + 1] == '<'))
-	{
 		redi_tokenz(m, str, '4');
-		m->i--;
-		m->j--;
-	}
 	else
 		fill_the_rest2(m, str);
 }
