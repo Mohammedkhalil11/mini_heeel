@@ -32,6 +32,7 @@ void	parent_process_in_pipe(t_exeec *z)
 
 void	wait_child_and_signals(t_exeec *z)
 {
+	g_g.child = 1;
 	z->i = 0;
 	while (z->i < z->s)
 		waitpid(z->pid_fd[z->i++], &(z->child_status), 0);
@@ -42,7 +43,6 @@ void	wait_child_and_signals(t_exeec *z)
 	close(z->l->pipe_fd[1]);
 	close(z->pipe_fd[0]);
 	close(z->pipe_fd[1]);
-	g_g.child = 1;
 	if (WIFEXITED(z->child_status))
 		g_g.exit_status = WEXITSTATUS(z->child_status);
 	else if (WIFSIGNALED(z->child_status))
@@ -53,6 +53,9 @@ void	exec_command_in_pipe(t_envar **ev, t_exeec *z)
 {
 	if (z->cmd->commande[0])
 	{
+		z->tmp_tab = z->cmd->commande;
+		z->spl = ft_split(z->cmd->commande[0], ' ');
+		z->cmd->commande = update_input_exp(&z->cmd->commande[1], z->spl);
 		if (exec(ev, z->cmd->commande))
 			exit(g_g.exit_status);
 		z->path_ex = split_path(ev);
@@ -61,8 +64,7 @@ void	exec_command_in_pipe(t_envar **ev, t_exeec *z)
 		{
 			write(2, z->cmd->commande[0], ft_strlen(z->cmd->commande[0]));
 			write(2, ": command not found\n", 21);
-			g_g.exit_status = 1;
-			exit(1);
+			exit(127);
 		}
 		execve(z->cp, z->cmd->commande, env_tab(ev));
 		perror("execve");

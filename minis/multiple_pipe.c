@@ -65,6 +65,7 @@ void	multiple_pipe_init(t_exeec *z, t_commandes **c, char *list)
 	z->l->nb_h = 0;
 	z->l->k = 0;
 	z->cp = NULL;
+	g_g.exit_status = 0;
 }
 
 void	multiple_pipe(t_commandes **c, t_envar **ev, char *list, t_env **eev)
