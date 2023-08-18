@@ -80,10 +80,7 @@ void	child_heredoc(t_herdc *a, t_varint *l)
 		l->line = readline(">");
 		a->tmp = l->line;
 		if (!strchr(l->tmp->files[l->x], '$'))
-		{
-			printf("ana hna----\n");
 			a->tmp = check_bill_her(a->tmp, l->s, l->env);
-		}
 		l->line = a->tmp;
 		fill_sring(l, a);
 		a->i++;

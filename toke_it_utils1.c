@@ -60,8 +60,8 @@ void	redi_tokenz(t_tokenz *m, char *str, char token)
 		redi_is_more(str, m);
 		if (is_pss(str[m->i]))
 		{
-			plus_plus(m);
-			fill_in_single(str, m);
+			if (skip_it(str, m, token))
+				return ;
 			lock = 1;
 		}
 		plus_plus(m);

@@ -12,6 +12,44 @@
 
 #include "../minishell.h"
 
+void	fill_array(char **new_cmd, char **new_tab, char **cmd)
+{
+	int	k;
+	int	j;
+
+	k = 0;
+	while (new_cmd[k])
+	{
+		new_tab[k] = ft_strdup(new_cmd[k]);
+		k++;
+	}
+	j = 0;
+	while (cmd[j])
+	{
+		new_tab[k] = ft_strdup(cmd[j]);
+		j++;
+		k++;
+	}
+	new_tab[k] = NULL;
+}
+
+char	**update_input_exp(char **cmd, char **new_cmd)
+{
+	char	**new_tab;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (new_cmd[i])
+		i++;
+	while (cmd[j])
+		j++;
+	new_tab = my_malloc(sizeof(char *) * (i + j + 1));
+	fill_array(new_cmd, new_tab, cmd);
+	return (new_tab);
+}
+
 void	multiple_pipe_init(t_exeec *z, t_commandes **c, char *list)
 {
 	z->pipe_fd[0] = -1;

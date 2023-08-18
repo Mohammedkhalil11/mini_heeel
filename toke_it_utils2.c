@@ -41,15 +41,15 @@ void	check_and_fill(char *str, t_tokenz *m)
 	}
 }
 
-void	fill_in_single(char *str, t_tokenz *m)
+void	fill_in_single(char *str, t_tokenz *m, char token)
 {
 	while (!ft_isspace(str[m->i]) && ft_isprintbl(str[m->i])
 		&& !ft_issospecial(str[m->i]) && str[m->i])
 	{
 		if (str[m->i] == '>' || str[m->i] == '<')
 		{
-			toknz_list(str, m->i, m->j);
-			break ;
+			m->array[m->j] = token;
+			plus_plus(m);
 		}
 		m->array[m->j] = '*';
 		plus_plus(m);

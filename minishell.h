@@ -389,13 +389,14 @@ void					init_dq_parss(char *tknz, t_quote *q, int start);
 void					init_sq_parss(char *tknz, t_quote *q, int start);
 void					parss_quotes(char *str, char *tknz, t_quote *q,
 							char token);
+int						skip_it(char *str, t_tokenz *m, char token);
 void					fill_between_q(char *str, t_quote *q);
 void					init_quotes_full(char *tknz, t_quote *q, int start);
 char					*add_return_quote(t_quote *q);
 void					plus_plus(t_tokenz *m);
 void					starting(char *str, t_tokenz *m);
 void					check_and_fill(char *str, t_tokenz *m);
-void					fill_in_single(char *str, t_tokenz *m);
+void					fill_in_single(char *str, t_tokenz *m, char token);
 void					fill_in_double(char *str, t_tokenz *m, char token);
 void					*my_malloc(size_t size);
 void					my_free(void *address);

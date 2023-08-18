@@ -59,7 +59,8 @@ void	exec_command_in_pipe(t_envar **ev, t_exeec *z)
 		z->cp = check_path(z->path_ex, z->cmd->commande[0]);
 		if (!z->cp)
 		{
-			write(2, "command not found\n", 18);
+			write(2, z->cmd->commande[0], ft_strlen(z->cmd->commande[0]));
+			write(2, ": command not found\n", 21);
 			g_g.exit_status = 1;
 			exit(1);
 		}

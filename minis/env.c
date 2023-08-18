@@ -55,7 +55,9 @@ void	env(t_envar **ev, char **input)
 	else
 	{
 		g_g.exit_status = 127;
-		printf("env: ‘%s’: No such file or directory\n", input[0]);
+		write(2, "env: ‘", 9);
+		write(2, input[0], ft_strlen(input[0]));
+		write(2, "’: No such file or directory\n", 32);
 		return ;
 	}
 }

@@ -18,7 +18,7 @@ static void	control_c(int sig)
 	{
 		if (g_g.readline)
 		{
-			g_g.exit_status = 1;
+			g_g.exit_status = 130;
 			write(1, "\n", 1);
 			rl_replace_line("", 0);
 			rl_on_new_line();

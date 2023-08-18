@@ -66,7 +66,8 @@ void	check_bill(t_commandes *tmp, t_env *senv, t_envar *env)
 		b->j = 0;
 		while (tmp->commande[b->i][b->j])
 		{
-			while (tmp->commande[b->i][b->j] == '"' || tmp->commande[b->i][b->j] == '\'')
+			while (tmp->commande[b->i][b->j] == '"'
+				|| tmp->commande[b->i][b->j] == '\'')
 				b->j++;
 			if (tmp->commande[b->i][b->j] == '$'
 				&& tmp->commande[b->i][b->j + 1] != '"'

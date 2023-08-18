@@ -1,7 +1,7 @@
 NAME = minishell
 CC = gcc
 RM = rm -f
-LIBS =-lreadline -lncurses -lc -lm
+LIBS =-lreadline
 CFLAGS = -Wall -Wextra -Werror
 src = main.c\
 		utils.c\

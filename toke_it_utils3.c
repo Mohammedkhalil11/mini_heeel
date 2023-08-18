@@ -43,3 +43,14 @@ void	red_q(char *str, t_tokenz *m)
 		plus_plus(m);
 	}
 }
+
+int	skip_it(char *str, t_tokenz *m, char token)
+{
+	fill_in_single(str, m, token);
+	if (ft_isspace(str[m->i]))
+	{
+		m->array[m->j] = '2';
+		return (1);
+	}
+	return (0);
+}
